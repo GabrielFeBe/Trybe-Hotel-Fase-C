@@ -18,19 +18,24 @@ namespace TrybeHotel.Controllers
         }
 
         [HttpGet("{HotelId}")]
-        public IActionResult GetRoom(int HotelId){
-            throw new NotImplementedException();
+        public IActionResult GetRoom(int HotelId)
+        {
+            var rooms = _repository.GetRooms(HotelId);
+            return Ok(rooms);
         }
 
         [HttpPost]
-        public IActionResult PostRoom([FromBody] Room room){
-            throw new NotImplementedException();
+        public IActionResult PostRoom([FromBody] Room room)
+        {
+            var roomCreated = _repository.AddRoom(room);
+            return Created("", roomCreated);
         }
 
         [HttpDelete("{RoomId}")]
         public IActionResult Delete(int RoomId)
         {
-             throw new NotImplementedException();
+            _repository.DeleteRoom(RoomId);
+            return NoContent();
         }
     }
 }

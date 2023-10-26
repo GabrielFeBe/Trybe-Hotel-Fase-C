@@ -1,5 +1,6 @@
 using TrybeHotel.Models;
 using TrybeHotel.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrybeHotel.Repository
 {
@@ -14,16 +15,40 @@ namespace TrybeHotel.Repository
         // 7. Refatore o endpoint GET /room
         public IEnumerable<RoomDto> GetRooms(int HotelId)
         {
-           throw new NotImplementedException();
+            var rooms = _context.Rooms.Include(room => room.Hotel).ThenInclude(hotel => hotel.City).ToList();
+
+            var roomDto = from room in rooms
+                          select new RoomDto
+                          {
+                              roomId = room.RoomId,
+                              name = room.Name,
+                              capacity = room.Capacity,
+                              image = room.Image,
+                              hotel = new HotelDto
+                              {
+                                  hotelId = room.Hotel.HotelId,
+                                  name = room.Hotel.Name,
+                                  address = room.Hotel.Address,
+                                  cityId = room.Hotel.CityId,
+                                  cityName = room.Hotel.City.Name,
+                                  state = room.Hotel.City.State
+                              }
+                          };
+
+
+            return roomDto;
+
         }
 
         // 8. Refatore o endpoint POST /room
-        public RoomDto AddRoom(Room room) {
+        public RoomDto AddRoom(Room room)
+        {
             throw new NotImplementedException();
         }
 
-        public void DeleteRoom(int RoomId) {
-           throw new NotImplementedException();
+        public void DeleteRoom(int RoomId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
