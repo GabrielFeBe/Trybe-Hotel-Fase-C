@@ -46,7 +46,26 @@ namespace TrybeHotel.Repository
         // 10. Refatore o endpoint GET /booking
         public BookingResponse GetBooking(int bookingId, string email)
         {
-            throw new NotImplementedException();
+            var bookingReturn = _context.Bookings.Include(booking => booking.Room)
+            .ThenInclude(room => room.Hotel).ThenInclude(hotel => hotel.City).FirstOrDefault(booking => booking.BookingId == bookingId);
+
+            var user = _context.Users.Where(user => user.Email == email).FirstOrDefault();
+            if (user.UserId != bookingReturn.UserId)
+            {
+                throw new Exception("User not found");
+            }
+
+
+            return new BookingResponse
+            {
+                bookingId = bookingReturn.BookingId,
+                checkIn = bookingReturn.CheckIn,
+                checkOut = bookingReturn.CheckOut,
+                guestQuant = bookingReturn.GuestQuant,
+                room = GetRoomById(bookingReturn.RoomId)
+
+
+            };
         }
 
         public RoomDto GetRoomById(int RoomId)
