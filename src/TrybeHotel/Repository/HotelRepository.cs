@@ -32,7 +32,20 @@ namespace TrybeHotel.Repository
         // 6. Refatore o endpoint POST /hotel
         public HotelDto AddHotel(Hotel hotel)
         {
-            throw new NotImplementedException();
+
+            var createdHotel = _context.Hotels.Add(hotel);
+            _context.SaveChanges();
+            var city = _context.Cities.Find(createdHotel.Entity.CityId);
+            return new HotelDto
+            {
+                address = createdHotel.Entity.Address,
+                hotelId = createdHotel.Entity.HotelId,
+                name = createdHotel.Entity.Name,
+                cityId = createdHotel.Entity.CityId,
+                cityName = city.Name,
+                state = city.State
+            };
+
         }
     }
 }

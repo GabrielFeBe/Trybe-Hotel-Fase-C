@@ -31,7 +31,9 @@ namespace TrybeHotel.Controllers
         [Authorize(Policy = "Admin")]
         public IActionResult PostHotel([FromBody] Hotel hotel)
         {
-            throw new NotImplementedException();
+
+            var createdHotel = _repository.AddHotel(hotel);
+            return Created("", createdHotel);
         }
 
     }
