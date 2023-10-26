@@ -55,7 +55,13 @@ namespace TrybeHotel.Repository
 
         public void DeleteRoom(int RoomId)
         {
-            throw new NotImplementedException();
+            var roomResponse = _context.Rooms.Find(RoomId);
+            if (roomResponse != null)
+            {
+
+                _context.Rooms.Remove(roomResponse);
+                _context.SaveChanges();
+            }
         }
     }
 }
