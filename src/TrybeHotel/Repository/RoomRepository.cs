@@ -43,7 +43,14 @@ namespace TrybeHotel.Repository
         // 8. Refatore o endpoint POST /room
         public RoomDto AddRoom(Room room)
         {
-            throw new NotImplementedException();
+            _context.Rooms.Add(room);
+            _context.SaveChanges();
+            var roomCreated = GetRooms(room.HotelId).FirstOrDefault(r => r.roomId == room.RoomId, new RoomDto
+            {
+
+            });
+
+            return roomCreated;
         }
 
         public void DeleteRoom(int RoomId)
