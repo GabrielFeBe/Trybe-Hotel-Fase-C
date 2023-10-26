@@ -196,6 +196,27 @@
           }
         },
         {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Desreferência de uma referência possivelmente nula.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///home/gabrielfernandes/c-sharp/csharp-028-csharp-projeto-trybe-hotel-fase-c/src/TrybeHotel/Repository/HotelRepository.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 44,
+                  "endLine": 26,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "CA1050",
           "level": "note",
           "message": "Declare types in namespaces",
