@@ -14,6 +14,15 @@ namespace TrybeHotel.Repository
         // 4. Refatore o endpoint GET /city
         public IEnumerable<CityDto> GetCities()
         {
+            var citiesDto = from city in _context.Cities.ToList()
+                            select new CityDto
+                            {
+                                cityId = city.CityId,
+                                name = city.Name,
+                                state = city.State
+                            };
+            return citiesDto;
+
             throw new NotImplementedException();
         }
 
